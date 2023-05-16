@@ -18,7 +18,7 @@
                     <strong>Log in</strong>
                 </a>
             <?php } else { ?>
-                <a href="/login.out" class="navbar-brand d-flex align-items-center">
+                <a href="/login.logaut" class="navbar-brand d-flex align-items-center">
                     <strong>Log out</strong>
                 </a>
             <?php } ?>

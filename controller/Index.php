@@ -2,20 +2,13 @@
 
 namespace controller;
 
-use system\Output;
-
-class Index
+class Index extends BaseController
 {
-    private $output;
-
-    public function __construct()
+    /**
+     * @return void
+     */
+    public function index()
     {
-        $this->output = new Output();
+        $this->output->view('index');
     }
-
-    public function index() {
-        $test = "sdacewqveqw";
-        $this->output->view('index', ['test' => $test]);
-    }
-
 }

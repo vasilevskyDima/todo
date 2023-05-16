@@ -16,11 +16,19 @@ class DB
         }
     }
 
-    public function query($sql)
+    /**
+     * @param $sql
+     * @return bool|object
+     */
+    public function query($sql): bool|object
     {
         return $this->db->query($sql);
     }
 
+    /**
+     * @param string $value
+     * @return string
+     */
     public function escape(string $value): string {
         return $this->db->escape($value);
     }

@@ -9,7 +9,7 @@ class Output
      * @param $variable
      * @return void
      */
-    public function view($path, $variable = [])
+    public function view($path, $variable = []): void
     {
         $file = './view/' . $path . '.php';
 

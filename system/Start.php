@@ -14,7 +14,10 @@ class Start
         });
     }
 
-    public function start()
+    /**
+     * @return void
+     */
+    public function start(): void
     {
         session_start();
         $url = parse_url($_SERVER['REQUEST_URI']);

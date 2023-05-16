@@ -19,14 +19,11 @@ final class MySQL
         }
     }
 
-    public function insert($sql)
-    {
-        $query = $this->connection->query($sql);
-        $query->close();
-    }
-
-
-    public function query($sql)
+    /**
+     * @param $sql
+     * @return bool|object
+     */
+    public function query($sql): bool|object
     {
         $data = [];
         $query = $this->connection->query($sql);
@@ -48,6 +45,10 @@ final class MySQL
         }
     }
 
+    /**
+     * @param string $value
+     * @return string
+     */
     public function escape(string $value): string {
         return $this->connection->real_escape_string($value);
     }

@@ -2,46 +2,27 @@
 
 namespace controller;
 
-use system\Output;
 use system\Pagination;
 
-class Task
+class Task extends BaseController
 {
-    private $output;
-
-    public function __construct()
-    {
-        $this->output = new Output();
-    }
-
-    public function index()
+    /**
+     * @return void
+     */
+    public function index(): void
     {
         $modelTask = new \model\Task();
 
-        if (isset($_GET['sort'])) {
-            $sort = $_GET['sort'];
-        } else {
-            $sort = 'id';
-        }
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
+        $order = isset($_GET['order']) ? $_GET['order'] : 1;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-        if (isset($_GET['order'])) {
-            $order = $_GET['order'];
-        } else {
-            $order = 1;
-        }
-
-        if (isset($_GET['page'])) {
-            $page = $_GET['page'];
-        } else {
-            $page = 1;
-        }
-
-        $data = array(
+        $data = [
             'sort' => $sort,
             'order' => $order,
             'start' => ($page - 1) * 3,
             'limit' => 3
-        );
+        ];
 
         $result = $modelTask->getTasks($data);
         $total = $modelTask->getTotalTask();
@@ -55,12 +36,18 @@ class Task
         $this->output->view('task', ['tasks' => $result->rows, 'pagination' => $pagination->render()]);
     }
 
-    public function insert()
+    /**
+     * @return void
+     */
+    public function insert(): void
     {
         $this->output->view('task.form');
     }
 
-    public function save()
+    /**
+     * @return void
+     */
+    public function save(): void
     {
         $validation = [];
 
@@ -86,7 +73,10 @@ class Task
         }
     }
 
-    public function edit()
+    /**s
+     * @return void
+     */
+    public function edit(): void
     {
         if (!isset($_GET['id'])) {
             header('Location: /');
@@ -98,7 +88,10 @@ class Task
         $this->output->view('task.form', ['task' => $result->row]);
     }
 
-    public function update()
+    /**
+     * @return void
+     */
+    public function update(): void
     {
         $validation = [];
         $validation = $this->validation($_POST);
@@ -127,7 +120,10 @@ class Task
         }
     }
 
-    public function remove()
+    /**
+     * @return void
+     */
+    public function remove(): void
     {
         if (!isset($_SESSION['user'])) {
             header('Location: /');
@@ -144,6 +140,10 @@ class Task
         }
     }
 
+    /**s
+     * @param $data
+     * @return array
+     */
     public function validation($data): array
     {
         $validation = [];
