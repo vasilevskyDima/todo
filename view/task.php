@@ -49,7 +49,7 @@ include_once __DIR__ . '/header.php';
                                 <?php } else { ?>
                                     <td>Update</td>
                                 <?php } ?>
-                                <?php if (isset($_SESSION['user'])) { ?>
+                                <?php if (isset($user) && $user) { ?>
                                     <td>
                                         <a href="/task.remove?id=<?php echo $item['id'] ?>"
                                            class="link-danger">Delete</a>
