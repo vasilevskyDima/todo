@@ -5,7 +5,7 @@ include_once __DIR__ . '/header.php';
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="row">
-                <?php if (isset($_SESSION['user'])) { ?>
+                <?php if (isset($user) && $user) { ?>
                     <div class="alert alert-success" role="alert">
                         Welcome admin!
                     </div>
@@ -15,23 +15,23 @@ include_once __DIR__ . '/header.php';
                     <thead>
                     <tr>
                         <th>№</th>
-                        <?php if (isset($_GET['order']) && $_GET['order'] == "ASC") { ?>
+                        <?php if (isset($data['order']) && $data['order'] == "ASC") { ?>
                             <th><a href="/task?sort=name&order=DESC" class="link-info">Name</a></th>
                         <?php } else { ?>
                             <th><a href="/task?sort=name&order=ASC" class="link-info">Name</a></th>
                         <?php } ?>
-                        <?php if (isset($_GET['order']) && $_GET['order'] == "ASC") { ?>
+                        <?php if (isset($data['order']) && $data['order'] == "ASC") { ?>
                             <th><a href="/task?sort=email&order=DESC" class="link-info">Email</a></th>
                         <?php } else { ?>
                             <th><a href="/task?sort=email&order=ASC" class="link-info">Email</a></th>
                         <?php } ?>
                         <th>Description</th>
-                        <?php if (isset($_GET['order']) && $_GET['order'] == "ASC") { ?>
+                        <?php if (isset($data['order']) && $data['order'] == "ASC") { ?>
                             <th><a href="/task?sort=status&order=DESC" class="link-info">Status</a></th>
                         <?php } else { ?>
                             <th><a href="/task?sort=status&order=ASC" class="link-info">Status</a></th>
                         <?php } ?>
-                        <?php if (isset($_SESSION['user'])) { ?>
+                        <?php if (isset($user) && $user) { ?>
                             <th>Action</th>
                         <?php } ?>
                     </tr>

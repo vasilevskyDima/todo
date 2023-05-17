@@ -13,9 +13,9 @@ class Task extends BaseController
     {
         $modelTask = new \model\Task();
 
-        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';
-        $order = isset($_GET['order']) ? $_GET['order'] : 1;
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $sort = $_GET['sort'] ?? 'id';
+        $order = $_GET['order'] ?? 1;
+        $page = $_GET['page'] ?? 1;
 
         $data = [
             'sort' => $sort,
@@ -33,7 +33,17 @@ class Task extends BaseController
         $pagination->limit = 3;
         $pagination->url = '/task?page={page}';
 
-        $this->output->view('task', ['tasks' => $result->rows, 'pagination' => $pagination->render()]);
+        $user = isset($_SESSION['user']);
+
+        $this->output->view(
+            'task',
+            [
+                'tasks' => $result->rows,
+                'pagination' => $pagination->render(),
+                'data' => $data,
+                'user' => $user
+            ]
+        );
     }
 
     /**
@@ -49,12 +59,11 @@ class Task extends BaseController
      */
     public function save(): void
     {
-        $validation = [];
-
         $validation = $this->validation($_POST);
 
         if (count($validation) !== 0) {
-            $this->output->view('task.form', ['validation' => $validation]);
+            $this->output->view('task.form', ['validation' => $validation, 'task' => $_POST]);
+            exit;
         }
 
         $data = [];
@@ -93,7 +102,6 @@ class Task extends BaseController
      */
     public function update(): void
     {
-        $validation = [];
         $validation = $this->validation($_POST);
 
         if (!isset($_SESSION['user'])) {
@@ -102,6 +110,7 @@ class Task extends BaseController
 
         if (count($validation) !== 0) {
             $this->output->view('task.form', ['task' => $_POST, 'validation' => $validation]);
+            exit;
         }
 
         $data = [];
